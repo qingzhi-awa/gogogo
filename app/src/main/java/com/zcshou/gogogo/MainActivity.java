@@ -209,9 +209,8 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
 
         initSearchView();
 
-        initUpdateVersion();
-
-        checkUpdateVersion(false);
+        // initUpdateVersion();
+        // checkUpdateVersion(false);
     }
 
     @Override
@@ -430,15 +429,6 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
                         GoUtils.DisplayToast(this, getResources().getString(R.string.app_error_dev));
                     }
                 }
-            } else if (id == R.id.nav_update) {
-                checkUpdateVersion(true);
-            } else if (id == R.id.nav_feedback) {
-                File file = new File(getExternalFilesDir("Logs"), GoApplication.LOG_FILE_NAME);
-                ShareUtils.shareFile(this, file, item.getTitle().toString());
-            } else if (id == R.id.nav_contact) {
-                Uri uri = Uri.parse("https://gitee.com/itexp/gogogo/issues");
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
             }
 
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -1164,6 +1154,7 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
     }
 
     private void checkUpdateVersion(boolean result) {
+        if (true) return;
         String mapApiUrl = "https://api.github.com/repos/zcshou/gogogo/releases/latest";
 
         okhttp3.Request request = new okhttp3.Request.Builder().url(mapApiUrl).get().build();

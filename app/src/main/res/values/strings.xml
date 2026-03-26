@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">影梭</string>
+    <string name="app_name">锻炼身体</string>
     <string name="app_settings">设置</string>
     <string name="app_history">历史记录</string>
     <string name="app_author">ZCShou</string>
@@ -63,6 +63,8 @@
     <string name="setting_bike_default">10.0</string>
     <string name="setting_altitude">海拔高度(米)</string>
     <string name="setting_altitude_default">55.0</string>
+    <string name="setting_cadence">模拟步频(步/分钟)</string>
+    <string name="setting_cadence_default">160</string>
 
     <!-- 位置偏移相关参数 -->
     <string name="setting_group_location_offset">位置偏移</string>
@@ -112,6 +114,15 @@
     <string name="nav_menu_feedback">问题反馈</string>
     <string name="nav_menu_contact">联系作者</string>
     <string name="nav_app_tips">仅供学习使用，否则后果自负!</string>
+
+    <!-- 画圈跑 -->
+    <string name="circle_run_title">画圈跑参数设置</string>
+    <string name="circle_run_radius_a">长半轴(米)</string>
+    <string name="circle_run_radius_b">短半轴(米)</string>
+    <string name="circle_run_start">开始</string>
+    <string name="circle_run_cancel">取消</string>
+    <string name="circle_run_error_input">请输入合法的半径数值</string>
+
 
     <!-- 主界面 -->
     <string name="label_longitude">经度</string>

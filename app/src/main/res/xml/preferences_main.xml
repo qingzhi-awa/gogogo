@@ -43,6 +43,13 @@
             app:summary="@string/setting_altitude_default"
             app:iconSpaceReserved="false"/>
 
+        <EditTextPreference
+            app:key="setting_cadence"
+            app:title="@string/setting_cadence"
+            app:defaultValue="@string/setting_cadence_default"
+            app:summary="@string/setting_cadence_default"
+            app:iconSpaceReserved="false"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory

@@ -21,6 +21,10 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.SearchView;
+import android.widget.EditText;
+import android.widget.Button;
+import android.app.AlertDialog;
+import android.os.Build;
 
 import androidx.preference.PreferenceManager;
 
@@ -41,6 +45,11 @@ import com.zcshou.gogogo.R;
 import com.zcshou.utils.GoUtils;
 import com.zcshou.utils.MapUtils;
 
+import com.baidu.mapapi.map.Polyline;
+import com.baidu.mapapi.map.PolylineOptions;
+import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.utils.DistanceUtil;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -48,8 +57,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class JoyStick extends View {
-    private static final int DivGo = 1000;    /* 移动的时间间隔，单位 ms */
+import android.location.Location;
+
+public class JoyStick extends View implements SharedPreferences.OnSharedPreferenceChangeListener {
+    private int mInterval = 1000;    /* 移动的时间间隔，单位 ms */
     private static final int WINDOW_TYPE_JOYSTICK = 0;
     private static final int WINDOW_TYPE_MAP = 1;
     private static final int WINDOW_TYPE_HISTORY = 2;
@@ -77,6 +88,21 @@ public class JoyStick extends View {
     private double mR = 0;
     private double disLng = 0;
     private double disLat = 0;
+    
+    // 画圈跑功能相关
+    private boolean isCircleRun = false;
+    private double mCircleA = 0;
+    private double mCircleB = 0;
+    private double mCircleAngle = 0;
+    private LatLng mCircleCenter;
+
+    // 手绘线路跑相关
+    private boolean isDrawRunMode = false;
+    private boolean isDrawRunning = false;
+    private List<LatLng> mDrawnRoute = new ArrayList<>();
+    private Polyline mDrawnPolyline;
+    private int mDrawRunIndex = 0;
+
     private final SharedPreferences sharedPreferences;
     /* 历史记录悬浮窗相关 */
     private FrameLayout mHistoryLayout;
@@ -98,6 +124,7 @@ public class JoyStick extends View {
         this.mContext = context;
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
         initWindowManager();
 
@@ -117,6 +144,7 @@ public class JoyStick extends View {
         this.mContext = context;
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
         initWindowManager();
 
@@ -136,6 +164,7 @@ public class JoyStick extends View {
         this.mContext = context;
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
         initWindowManager();
 
@@ -247,25 +276,120 @@ public class JoyStick extends View {
         mWindowParamCurrent.y = 300;
     }
 
-    @SuppressLint("InflateParams")
-    private void initJoyStickView() {
-        /* 移动计时器 */
-        mTimer = new GoUtils.TimeCount(DivGo, DivGo);
-        mTimer.setListener(new GoUtils.TimeCount.TimeCountListener() {
-            @Override
-            public void onTick(long millisUntilFinished) {
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if ("setting_cadence".equals(key)) {
+            try {
+                int cadence = Integer.parseInt(sharedPreferences.getString(key, "160"));
+                if (cadence > 0) {
+                    mInterval = 60000 / cadence;
+                    if (mTimer != null) {
+                        boolean wasMoving = isMove || isDrawRunning || isCircleRun;
+                        mTimer.cancel();
+                        mTimer = new GoUtils.TimeCount(mInterval, mInterval);
+                        mTimer.setListener(mTimerListener);
+                        if (wasMoving) {
+                            mTimer.start();
+                        }
+                    }
+                }
+            } catch (Exception e) {}
+        }
+    }
 
-            }
+    private GoUtils.TimeCount.TimeCountListener mTimerListener = new GoUtils.TimeCount.TimeCountListener() {
+        @Override
+        public void onTick(long millisUntilFinished) {
 
-            @Override
-            public void onFinish() {
+        }
+
+        @Override
+        public void onFinish() {
+            if (isDrawRunning && mDrawnRoute.size() >= 2) {
+                LatLng target = mDrawnRoute.get(mDrawRunIndex);
+                LatLng current = (mCurMapLngLat != null) ? mCurMapLngLat : mDrawnRoute.get(0);
+
+                double stepDist = mSpeed * (mInterval / 1000.0);
+                double distance = DistanceUtil.getDistance(current, target);
+
+                float bearing = calculateBearing(current.latitude, current.longitude, target.latitude, target.longitude);
+
+                if (distance <= stepDist && distance > 0) {
+                    mCurMapLngLat = target;
+                    mDrawRunIndex++;
+                    if (mDrawRunIndex >= mDrawnRoute.size()) {
+                        mDrawRunIndex = 0; // 循环
+                    }
+                } else if (distance > stepDist) {
+                    double latRatio = (target.latitude - current.latitude) * (stepDist / distance);
+                    double lngRatio = (target.longitude - current.longitude) * (stepDist / distance);
+                    mCurMapLngLat = new LatLng(current.latitude + latRatio, current.longitude + lngRatio);
+                }
+
+                double[] wgs = MapUtils.bd2wgs(mCurMapLngLat.longitude, mCurMapLngLat.latitude);
+                mListener.onPositionInfo(wgs[0], wgs[1], mAltitude, bearing);
+                mTimer.start();
+            } else if (isCircleRun && mCircleCenter != null && mCircleA > 0 && mCircleB > 0) {
+                double stepDist = mSpeed * (mInterval / 1000.0);
+                double R = (mCircleA + mCircleB) / 2.0;
+                double angleDelta = (stepDist / R) * (180.0 / Math.PI);
+                mCircleAngle += angleDelta;
+                if (mCircleAngle >= 360) {
+                    mCircleAngle -= 360;
+                }
+
+                double dx = mCircleA * Math.sin(Math.toRadians(mCircleAngle));
+                double dy = mCircleB * Math.cos(Math.toRadians(mCircleAngle));
+
+                double mCurLat = mCircleCenter.latitude + dy / 110574.0;
+                double mCurLng = mCircleCenter.longitude + dx / (111320.0 * Math.cos(Math.abs(mCircleCenter.latitude) * Math.PI / 180));
+
+                float bearing = calculateBearing(
+                    mCurMapLngLat == null ? mCurLat : mCurMapLngLat.latitude,
+                    mCurMapLngLat == null ? mCurLng : mCurMapLngLat.longitude,
+                    mCurLat, mCurLng);
+                
+                mCurMapLngLat = new LatLng(mCurLat, mCurLng);
+
+                double[] wgs = MapUtils.bd2wgs(mCurLng, mCurLat);
+                mListener.onPositionInfo(wgs[0], wgs[1], mAltitude, bearing);
+
+                mTimer.start();
+            } else {
                 // 注意：这里的 x y 与 圆中角度的对应问题（以 X 轴正向为 0 度）且转换为 km
-                disLng = mSpeed * (double)(DivGo / 1000) * mR * Math.cos(mAngle * 2 * Math.PI / 360) / 1000;// 注意安卓中的三角函数使用的是弧度
-                disLat = mSpeed * (double)(DivGo / 1000) * mR * Math.sin(mAngle * 2 * Math.PI / 360) / 1000;// 注意安卓中的三角函数使用的是弧度
+                disLng = mSpeed * (double)(mInterval / 1000.0) * mR * Math.cos(mAngle * 2 * Math.PI / 360) / 1000;// 注意安卓中的三角函数使用的是弧度
+                disLat = mSpeed * (double)(mInterval / 1000.0) * mR * Math.sin(mAngle * 2 * Math.PI / 360) / 1000;// 注意安卓中的三角函数使用的是弧度
                 mListener.onMoveInfo(mSpeed, disLng, disLat, 90.0F-mAngle);
                 mTimer.start();
             }
-        });
+        }
+    };
+
+    private float calculateBearing(double lat1, double lng1, double lat2, double lng2) {
+        Location loc1 = new Location("");
+        loc1.setLatitude(lat1);
+        loc1.setLongitude(lng1);
+        Location loc2 = new Location("");
+        loc2.setLatitude(lat2);
+        loc2.setLongitude(lng2);
+        return loc1.bearingTo(loc2);
+    }
+
+    @SuppressLint("InflateParams")
+    private void initJoyStickView() {
+        // 获取参数区设置的步频，计算出 mInterval
+        try {
+            int cadence = Integer.parseInt(sharedPreferences.getString("setting_cadence", getResources().getString(R.string.setting_cadence_default)));
+            if (cadence > 0) {
+                mInterval = 60000 / cadence;
+            }
+        } catch (NumberFormatException e) {
+            mInterval = 1000;
+        }
+
+        /* 移动计时器 */
+        mTimer = new GoUtils.TimeCount(mInterval, mInterval);
+        mTimer.setListener(mTimerListener);
         // 获取参数区设置的速度
         try {
             mSpeed = Double.parseDouble(sharedPreferences.getString("setting_walk", getResources().getString(R.string.setting_walk_default)));
@@ -374,6 +498,8 @@ public class JoyStick extends View {
             mTimer.cancel();
             isMove = false;
         } else {
+            isCircleRun = false;
+            isDrawRunning = false;
             mAngle = angle;
             mR = r;
             if (auto) {
@@ -385,8 +511,8 @@ public class JoyStick extends View {
                 mTimer.cancel();
                 isMove = false;
                 // 注意：这里的 x y 与 圆中角度的对应问题（以 X 轴正向为 0 度）且转换为 km
-                disLng = mSpeed * (double)(DivGo / 1000) * mR * Math.cos(mAngle * 2 * Math.PI / 360) / 1000;// 注意安卓中的三角函数使用的是弧度
-                disLat = mSpeed * (double)(DivGo / 1000) * mR * Math.sin(mAngle * 2 * Math.PI / 360) / 1000;// 注意安卓中的三角函数使用的是弧度
+                disLng = mSpeed * (double)(mInterval / 1000.0) * mR * Math.cos(mAngle * 2 * Math.PI / 360) / 1000;// 注意安卓中的三角函数使用的是弧度
+                disLat = mSpeed * (double)(mInterval / 1000.0) * mR * Math.sin(mAngle * 2 * Math.PI / 360) / 1000;// 注意安卓中的三角函数使用的是弧度
                 mListener.onMoveInfo(mSpeed, disLng, disLat, 90.0F-mAngle);
             }
         }
@@ -427,7 +553,7 @@ public class JoyStick extends View {
 
     public interface JoyStickClickListener {
         void onMoveInfo(double speed, double disLng, double disLat, double angle);
-        void onPositionInfo(double lng, double lat, double alt);
+        void onPositionInfo(double lng, double lat, double alt, float bearing);
     }
 
 
@@ -524,6 +650,50 @@ public class JoyStick extends View {
             }
         });
 
+        ImageButton btnDrawRun = mMapLayout.findViewById(R.id.btnDrawRun);
+        btnDrawRun.setOnClickListener(v -> {
+            if (isDrawRunMode || isDrawRunning) {
+                isDrawRunMode = false;
+                isDrawRunning = false;
+                btnDrawRun.setColorFilter(null);
+                mDrawnRoute.clear();
+                if (mDrawnPolyline != null) {
+                    mDrawnPolyline.remove();
+                    mDrawnPolyline = null;
+                }
+                mBaiduMap.getUiSettings().setScrollGesturesEnabled(true);
+            } else {
+                isDrawRunMode = true;
+                btnDrawRun.setColorFilter(getResources().getColor(R.color.colorAccent, mContext.getTheme()));
+                GoUtils.DisplayToast(mContext, "在地图上滑动手指手绘线路，松开即跑");
+                mBaiduMap.getUiSettings().setScrollGesturesEnabled(false);
+                mDrawnRoute.clear();
+                if (mDrawnPolyline != null) {
+                    mDrawnPolyline.remove();
+                    mDrawnPolyline = null;
+                }
+            }
+        });
+
+        ImageButton btnCircleRun = mMapLayout.findViewById(R.id.btnCircleRun);
+        btnCircleRun.setOnClickListener(v -> {
+            if (mMarkMapLngLat == null && mCurMapLngLat == null) {
+                GoUtils.DisplayToast(mContext, getResources().getString(R.string.app_error_location));
+                return;
+            }
+            // 关闭时清除焦点
+            mWindowParamCurrent.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                    | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                    | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
+            mWindowManager.updateViewLayout(mMapLayout, mWindowParamCurrent);
+
+            tips.setVisibility(VISIBLE);
+            mSearchView.clearFocus();
+            mSearchView.onActionViewCollapsed();
+
+            showCircleRunDialog();
+        });
+
         ImageButton btnGo = mMapLayout.findViewById(R.id.btnGo);
         btnGo.setOnClickListener(v -> {
             // 关闭时清除焦点
@@ -544,7 +714,7 @@ public class JoyStick extends View {
                     mMarkMapLngLat = null;
 
                     double[] lngLat = MapUtils.bd2wgs(mCurMapLngLat.longitude, mCurMapLngLat.latitude);
-                    mListener.onPositionInfo(lngLat[0], lngLat[1], mAltitude);
+                    mListener.onPositionInfo(lngLat[0], lngLat[1], mAltitude, 0);
 
                     resetBaiduMap();
 
@@ -577,6 +747,62 @@ public class JoyStick extends View {
         initBaiduMap();
     }
 
+    private void showCircleRunDialog() {
+        AlertDialog dialog;
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle(getResources().getString(R.string.circle_run_title));
+        View view = inflater.inflate(R.layout.dialog_circle_run, null);
+        builder.setView(view);
+
+        dialog = builder.create();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
+        } else {
+            dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_PHONE);
+        }
+        dialog.show();
+
+        EditText circle_radius_a = view.findViewById(R.id.circle_radius_a);
+        EditText circle_radius_b = view.findViewById(R.id.circle_radius_b);
+        Button btnStart = view.findViewById(R.id.circle_btn_start);
+        Button btnCancel = view.findViewById(R.id.circle_btn_cancel);
+
+        btnStart.setOnClickListener(v -> {
+            String aStr = circle_radius_a.getText().toString();
+            String bStr = circle_radius_b.getText().toString();
+            if (TextUtils.isEmpty(aStr)) {
+                GoUtils.DisplayToast(mContext, getResources().getString(R.string.circle_run_error_input));
+                return;
+            }
+            try {
+                mCircleA = Double.parseDouble(aStr);
+                mCircleB = TextUtils.isEmpty(bStr) ? mCircleA : Double.parseDouble(bStr);
+                if (mCircleA <= 0 || mCircleB <= 0) {
+                    GoUtils.DisplayToast(mContext, getResources().getString(R.string.circle_run_error_input));
+                    return;
+                }
+
+                mCircleCenter = (mMarkMapLngLat != null) ? mMarkMapLngLat : mCurMapLngLat;
+                isCircleRun = true;
+                mCircleAngle = 0;
+
+                mCurWin = WINDOW_TYPE_JOYSTICK;
+                show();
+
+                if (!isMove) {
+                    mTimer.start();
+                    isMove = true;
+                }
+                GoUtils.DisplayToast(mContext, "画圈跑已开始");
+                dialog.dismiss();
+            } catch (Exception e) {
+                GoUtils.DisplayToast(mContext, getResources().getString(R.string.circle_run_error_input));
+            }
+        });
+
+        btnCancel.setOnClickListener(v -> dialog.dismiss());
+    }
+
     private void initBaiduMap() {
         mMapView = mMapLayout.findViewById(R.id.map_joystick);
         mMapView.showZoomControls(false);
@@ -585,7 +811,45 @@ public class JoyStick extends View {
         mBaiduMap.setMyLocationEnabled(true);
 
         mBaiduMap.setOnMapTouchListener(event -> {
-
+            if (isDrawRunMode) {
+                int action = event.getAction();
+                if (action == android.view.MotionEvent.ACTION_DOWN || action == android.view.MotionEvent.ACTION_MOVE) {
+                    android.graphics.Point pt = new android.graphics.Point((int) event.getX(), (int) event.getY());
+                    LatLng latLng = mBaiduMap.getProjection().fromScreenLocation(pt);
+                    if (latLng != null) {
+                        mDrawnRoute.add(latLng);
+                        if (mDrawnRoute.size() >= 2) {
+                            if (mDrawnPolyline != null) {
+                                mDrawnPolyline.remove();
+                            }
+                            OverlayOptions polylineOption = new PolylineOptions()
+                                    .points(mDrawnRoute)
+                                    .color(0xAAFF0000)
+                                    .width(10);
+                            mDrawnPolyline = (Polyline) mBaiduMap.addOverlay(polylineOption);
+                        }
+                    }
+                } else if (action == android.view.MotionEvent.ACTION_UP) {
+                    isDrawRunMode = false;
+                    mBaiduMap.getUiSettings().setScrollGesturesEnabled(true);
+                    if (mDrawnRoute.size() >= 2) {
+                        isDrawRunning = true;
+                        mDrawRunIndex = 0;
+                        mCurMapLngLat = mDrawnRoute.get(0);
+                        mCurWin = WINDOW_TYPE_JOYSTICK;
+                        show();
+                        if (!isMove) {
+                            mTimer.start();
+                            isMove = true;
+                        }
+                        GoUtils.DisplayToast(mContext, "开始沿着手绘路线平滑移动");
+                    } else {
+                        ImageButton btnDrawRun = mMapLayout.findViewById(R.id.btnDrawRun);
+                        if (btnDrawRun != null) btnDrawRun.setColorFilter(null);
+                        GoUtils.DisplayToast(mContext, "手绘路线太短已取消");
+                    }
+                }
+            }
         });
 
         mBaiduMap.setOnMapClickListener(new BaiduMap.OnMapClickListener() {
@@ -729,7 +993,7 @@ public class JoyStick extends View {
             String wgs84Longitude = wgs84latLngStr[0].substring(wgs84latLngStr[0].indexOf(':') + 1);
             String wgs84Latitude = wgs84latLngStr[1].substring(wgs84latLngStr[1].indexOf(':') + 1);
 
-            mListener.onPositionInfo(Double.parseDouble(wgs84Longitude), Double.parseDouble(wgs84Latitude), mAltitude);
+            mListener.onPositionInfo(Double.parseDouble(wgs84Longitude), Double.parseDouble(wgs84Latitude), mAltitude, 0);
 
             // 注意这里在选择位置之后需要刷新地图
             String bdLatLng = (String) ((TextView) view.findViewById(R.id.BDLatLngText)).getText();

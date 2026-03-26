@@ -58,6 +58,7 @@ public class ServiceGo extends Service {
     private NoteActionReceiver mActReceiver;
     // 摇杆相关
     private JoyStick mJoyStick;
+    private long lastInjectTime = 0;
 
     private final ServiceGoBinder mBinder = new ServiceGoBinder();
 
@@ -161,13 +162,24 @@ public class ServiceGo extends Service {
                 mCurLng += disLng / (111.320 * Math.cos(Math.abs(mCurLat) * Math.PI / 180));
                 mCurLat += disLat / 110.574;
                 mCurBea = (float) angle;
+
+                if (!isStop) {
+                    setLocationNetwork();
+                    setLocationGPS();
+                }
             }
 
             @Override
-            public void onPositionInfo(double lng, double lat, double alt) {
+            public void onPositionInfo(double lng, double lat, double alt, float bearing) {
                 mCurLng = lng;
                 mCurLat = lat;
                 mCurAlt = alt;
+                mCurBea = bearing;
+
+                if (!isStop) {
+                    setLocationNetwork();
+                    setLocationGPS();
+                }
             }
         });
         mJoyStick.show();
@@ -187,9 +199,11 @@ public class ServiceGo extends Service {
                     Thread.sleep(100);
 
                     if (!isStop) {
-                        setLocationNetwork();
-                        setLocationGPS();
-
+                        long currentTime = System.currentTimeMillis();
+                        if (currentTime - lastInjectTime >= 1000) {
+                            setLocationNetwork();
+                            setLocationGPS();
+                        }
                         sendEmptyMessage(HANDLER_MSG_ID);
                     }
                 } catch (InterruptedException e) {
@@ -235,18 +249,25 @@ public class ServiceGo extends Service {
 
     private void setLocationGPS() {
         try {
-            // 尽可能模拟真实的 GPS 数据
+            long currentTime = System.currentTimeMillis();
+            lastInjectTime = currentTime;
+            
+            long jitterTime = (long)((Math.random() - 0.5) * 200); // +/- 100ms
+            double jitterLat = (Math.random() - 0.5) * 0.000005; // ~0.5m
+            double jitterLng = (Math.random() - 0.5) * 0.000005; // ~0.5m
+            
+            // 尽可能模拟真实的 GPS 数据，加入随机 Jitter（防作弊检测）
             Location loc = new Location(LocationManager.GPS_PROVIDER);
             loc.setAccuracy(Criteria.ACCURACY_FINE);    // 设定此位置的估计水平精度，以米为单位。
             loc.setAltitude(mCurAlt);                     // 设置高度，在 WGS 84 参考坐标系中的米
             loc.setBearing(mCurBea);                       // 方向（度）
-            loc.setLatitude(mCurLat);                   // 纬度（度）
-            loc.setLongitude(mCurLng);                  // 经度（度）
-            loc.setTime(System.currentTimeMillis());    // 本地时间
-            loc.setSpeed((float) mSpeed);
-            loc.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
+            loc.setLatitude(mCurLat + jitterLat);                   // 纬度（度）包含少量漂移
+            loc.setLongitude(mCurLng + jitterLng);                  // 经度（度）包含少量漂移
+            loc.setTime(currentTime + jitterTime);    // 本地时间包含少量波动
+            loc.setSpeed((float) (mSpeed + (Math.random() - 0.5) * 0.2)); // 速度包含小幅波动
+            loc.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos() + jitterTime * 1000000L);
             Bundle bundle = new Bundle();
-            bundle.putInt("satellites", 7);
+            bundle.putInt("satellites", 7 + (int)(Math.random() * 4)); // 卫星数量动态变化
             loc.setExtras(bundle);
 
             mLocManager.setTestProviderLocation(LocationManager.GPS_PROVIDER, loc);
@@ -290,16 +311,20 @@ public class ServiceGo extends Service {
 
     private void setLocationNetwork() {
         try {
-            // 尽可能模拟真实的 NETWORK 数据
+            long jitterTime = (long)((Math.random() - 0.5) * 200); // +/- 100ms
+            double jitterLat = (Math.random() - 0.5) * 0.000005; // ~0.5m
+            double jitterLng = (Math.random() - 0.5) * 0.000005; // ~0.5m
+            
+            // 尽可能模拟真实的 NETWORK 数据，加入随机 Jitter（防作弊检测）
             Location loc = new Location(LocationManager.NETWORK_PROVIDER);
             loc.setAccuracy(Criteria.ACCURACY_COARSE);  // 设定此位置的估计水平精度，以米为单位。
             loc.setAltitude(mCurAlt);                     // 设置高度，在 WGS 84 参考坐标系中的米
             loc.setBearing(mCurBea);                       // 方向（度）
-            loc.setLatitude(mCurLat);                   // 纬度（度）
-            loc.setLongitude(mCurLng);                  // 经度（度）
-            loc.setTime(System.currentTimeMillis());    // 本地时间
-            loc.setSpeed((float) mSpeed);
-            loc.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
+            loc.setLatitude(mCurLat + jitterLat);                   // 纬度（度）包含少量漂移
+            loc.setLongitude(mCurLng + jitterLng);                  // 经度（度）包含少量漂移
+            loc.setTime(System.currentTimeMillis() + jitterTime);    // 本地时间包含少量波动
+            loc.setSpeed((float) (mSpeed + (Math.random() - 0.5) * 0.2)); // 速度包含小幅波动
+            loc.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos() + jitterTime * 1000000L);
 
             mLocManager.setTestProviderLocation(LocationManager.NETWORK_PROVIDER, loc);
         } catch (Exception e) {
