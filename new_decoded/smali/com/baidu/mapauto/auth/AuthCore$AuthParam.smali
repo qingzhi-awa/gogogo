@@ -1,0 +1,402 @@
+.class public Lcom/baidu/mapauto/auth/AuthCore$AuthParam;
+.super Ljava/util/HashMap;
+.source "r8-map-id-a697c28d88f1f7ab09acc7302245a726fba68895f62733ff39ce95c9cd8db744"
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/baidu/mapauto/auth/AuthCore;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x9
+    name = "AuthParam"
+.end annotation
+
+.annotation system Ldalvik/annotation/Signature;
+    value = {
+        "Ljava/util/HashMap<",
+        "Ljava/lang/String;",
+        "Ljava/lang/Object;",
+        ">;"
+    }
+.end annotation
+
+
+# static fields
+.field public static final KEY_EXTRA_APP_VERSION:Ljava/lang/String; = "extra_app_version"
+
+.field public static final KEY_EXTRA_CUID:Ljava/lang/String; = "extra_cuid"
+
+.field public static final KEY_EXTRA_MODE:Ljava/lang/String; = "extra_mode"
+
+.field public static final KEY_EXTRA_MODEL:Ljava/lang/String; = "extra_model"
+
+.field public static final KEY_EXTRA_OS_VERSION:Ljava/lang/String; = "extra_os_version"
+
+
+# direct methods
+.method public constructor <init>()V
+    .locals 0
+
+    .line 1
+    invoke-direct {p0}, Ljava/util/HashMap;-><init>()V
+
+    return-void
+.end method
+
+.method public constructor <init>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/util/Map;)V
+    .locals 1
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            "I",
+            "Ljava/util/Map<",
+            "Ljava/lang/String;",
+            "Ljava/lang/Object;",
+            ">;)V"
+        }
+    .end annotation
+
+    .line 2
+    invoke-direct {p0}, Ljava/util/HashMap;-><init>()V
+
+    const-string v0, "ak"
+
+    invoke-virtual {p0, v0, p1}, Ljava/util/AbstractMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    const-string p1, "channel"
+
+    invoke-virtual {p0, p1, p2}, Ljava/util/AbstractMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    const-string p1, "device_id"
+
+    invoke-virtual {p0, p1, p3}, Ljava/util/AbstractMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    const-string p1, "service_name"
+
+    invoke-virtual {p0, p1, p4}, Ljava/util/AbstractMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    const-string p1, "function_name"
+
+    invoke-virtual {p0, p1, p5}, Ljava/util/AbstractMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    invoke-static {p6}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object p1
+
+    const-string p2, "need_active"
+
+    invoke-virtual {p0, p2, p1}, Ljava/util/AbstractMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    if-eqz p7, :cond_0
+
+    invoke-virtual {p0, p7}, Ljava/util/AbstractMap;->putAll(Ljava/util/Map;)V
+
+    :cond_0
+    const-string p1, "sdk_version_name"
+
+    const-string p2, "1.0.0"
+
+    invoke-virtual {p0, p1, p2}, Ljava/util/AbstractMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    const/4 p1, 0x1
+
+    invoke-static {p1}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object p1
+
+    const-string p2, "sdk_version_code"
+
+    invoke-virtual {p0, p2, p1}, Ljava/util/AbstractMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public final a()Lcom/baidu/mapauto/auth/AuthCore$AuthParam;
+    .locals 4
+
+    .line 1
+    new-instance v0, Lcom/baidu/mapauto/auth/AuthCore$AuthParam;
+
+    invoke-direct {v0}, Lcom/baidu/mapauto/auth/AuthCore$AuthParam;-><init>()V
+
+    invoke-virtual {p0}, Ljava/util/AbstractMap;->keySet()Ljava/util/Set;
+
+    move-result-object v1
+
+    invoke-interface {v1}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
+
+    move-result-object v1
+
+    :goto_0
+    invoke-interface {v1}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v2
+
+    if-eqz v2, :cond_0
+
+    invoke-interface {v1}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v2
+
+    check-cast v2, Ljava/lang/String;
+
+    invoke-virtual {p0, v2}, Ljava/util/AbstractMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object v3
+
+    invoke-virtual {v0, v2, v3}, Ljava/util/AbstractMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    goto :goto_0
+
+    :cond_0
+    return-object v0
+.end method
+
+.method public final a(I)Z
+    .locals 5
+
+    .line 2
+    invoke-virtual {p0}, Lcom/baidu/mapauto/auth/AuthCore$AuthParam;->b()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v0
+
+    const/4 v1, 0x0
+
+    const/4 v2, 0x1
+
+    if-nez v0, :cond_0
+
+    invoke-virtual {p0}, Lcom/baidu/mapauto/auth/AuthCore$AuthParam;->e()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_0
+
+    move v0, v2
+
+    goto :goto_0
+
+    :cond_0
+    move v0, v1
+
+    :goto_0
+    and-int/lit8 v3, p1, 0x2
+
+    const/4 v4, 0x2
+
+    if-ne v3, v4, :cond_2
+
+    if-eqz v0, :cond_1
+
+    invoke-virtual {p0}, Lcom/baidu/mapauto/auth/AuthCore$AuthParam;->c()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_1
+
+    move v0, v2
+
+    goto :goto_1
+
+    :cond_1
+    move v0, v1
+
+    :cond_2
+    :goto_1
+    and-int/2addr p1, v2
+
+    if-ne p1, v2, :cond_4
+
+    if-eqz v0, :cond_3
+
+    invoke-virtual {p0}, Lcom/baidu/mapauto/auth/AuthCore$AuthParam;->d()Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-static {p1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result p1
+
+    if-nez p1, :cond_3
+
+    return v2
+
+    :cond_3
+    return v1
+
+    :cond_4
+    return v0
+.end method
+
+.method public final b()Ljava/lang/String;
+    .locals 2
+
+    .line 1
+    const-string v0, "ak"
+
+    .line 2
+    .line 3
+    invoke-virtual {p0, v0}, Ljava/util/AbstractMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
+
+    .line 4
+    .line 5
+    .line 6
+    move-result-object v0
+
+    .line 7
+    instance-of v1, v0, Ljava/lang/String;
+
+    .line 8
+    .line 9
+    if-eqz v1, :cond_0
+
+    .line 10
+    .line 11
+    check-cast v0, Ljava/lang/String;
+
+    .line 12
+    .line 13
+    return-object v0
+
+    .line 14
+    :cond_0
+    const/4 v0, 0x0
+
+    .line 15
+    return-object v0
+.end method
+
+.method public final c()Ljava/lang/String;
+    .locals 2
+
+    .line 1
+    const-string v0, "channel"
+
+    .line 2
+    .line 3
+    invoke-virtual {p0, v0}, Ljava/util/AbstractMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
+
+    .line 4
+    .line 5
+    .line 6
+    move-result-object v0
+
+    .line 7
+    instance-of v1, v0, Ljava/lang/String;
+
+    .line 8
+    .line 9
+    if-eqz v1, :cond_0
+
+    .line 10
+    .line 11
+    check-cast v0, Ljava/lang/String;
+
+    .line 12
+    .line 13
+    return-object v0
+
+    .line 14
+    :cond_0
+    const/4 v0, 0x0
+
+    .line 15
+    return-object v0
+.end method
+
+.method public final d()Ljava/lang/String;
+    .locals 2
+
+    .line 1
+    const-string v0, "device_id"
+
+    .line 2
+    .line 3
+    invoke-virtual {p0, v0}, Ljava/util/AbstractMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
+
+    .line 4
+    .line 5
+    .line 6
+    move-result-object v0
+
+    .line 7
+    instance-of v1, v0, Ljava/lang/String;
+
+    .line 8
+    .line 9
+    if-eqz v1, :cond_0
+
+    .line 10
+    .line 11
+    check-cast v0, Ljava/lang/String;
+
+    .line 12
+    .line 13
+    return-object v0
+
+    .line 14
+    :cond_0
+    const/4 v0, 0x0
+
+    .line 15
+    return-object v0
+.end method
+
+.method public final e()Ljava/lang/String;
+    .locals 2
+
+    .line 1
+    const-string v0, "service_name"
+
+    .line 2
+    .line 3
+    invoke-virtual {p0, v0}, Ljava/util/AbstractMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
+
+    .line 4
+    .line 5
+    .line 6
+    move-result-object v0
+
+    .line 7
+    instance-of v1, v0, Ljava/lang/String;
+
+    .line 8
+    .line 9
+    if-eqz v1, :cond_0
+
+    .line 10
+    .line 11
+    check-cast v0, Ljava/lang/String;
+
+    .line 12
+    .line 13
+    return-object v0
+
+    .line 14
+    :cond_0
+    const/4 v0, 0x0
+
+    .line 15
+    return-object v0
+.end method

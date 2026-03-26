@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen app:iconSpaceReserved="false" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory app:iconSpaceReserved="false" app:title="@string/setting_group_move">
+        <ListPreference app:defaultValue="0" app:dialogTitle="@string/setting_joystick_tips" app:entries="@array/array_joystick_type" app:entryValues="@array/array_joystick_type_values" app:iconSpaceReserved="false" app:key="setting_joystick_type" app:title="@string/setting_joystick" />
+        <EditTextPreference app:defaultValue="@string/setting_walk_default" app:iconSpaceReserved="false" app:key="setting_walk" app:summary="@string/setting_walk_default" app:title="@string/setting_walk" />
+        <EditTextPreference app:defaultValue="@string/setting_run_default" app:iconSpaceReserved="false" app:key="setting_run" app:summary="@string/setting_run_default" app:title="@string/setting_run" />
+        <EditTextPreference app:defaultValue="@string/setting_bike_default" app:iconSpaceReserved="false" app:key="setting_bike" app:summary="@string/setting_bike_default" app:title="@string/setting_bike" />
+    </PreferenceCategory>
+    <PreferenceCategory app:iconSpaceReserved="false" app:title="@string/setting_group_log">
+        <SwitchPreferenceCompat app:defaultValue="false" app:iconSpaceReserved="false" app:key="setting_log_off" app:title="@string/setting_log_off" />
+        <EditTextPreference app:defaultValue="@string/setting_pos_history_default" app:iconSpaceReserved="false" app:key="setting_pos_history" app:summary="@string/setting_pos_history_default" app:title="@string/setting_pos_history" />
+    </PreferenceCategory>
+    <PreferenceCategory app:iconSpaceReserved="false" app:title="@string/setting_group_about">
+        <Preference app:iconSpaceReserved="false" app:key="setting_version" app:title="@string/setting_version" />
+        <Preference app:defaultValue="@string/app_author" app:iconSpaceReserved="false" app:key="setting_author" app:summary="@string/app_author" app:title="@string/setting_author" />
+    </PreferenceCategory>
+    <PreferenceCategory app:iconSpaceReserved="false" app:isPreferenceVisible="false" app:title="@string/setting_group_sys">
+        <Preference app:iconSpaceReserved="false" app:key="setting_startup_num" />
+        <Preference app:iconSpaceReserved="false" app:key="setting_reg_code" />
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_vertical" android:layout_gravity="center_vertical" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="horizontal" android:id="@id/llSearchLinear" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <SearchView android:layout_gravity="end|bottom|center" android:id="@id/searchView" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginTop="5.0dip" android:iconifiedByDefault="true" android:queryHint="请输入搜索内容" />
+    </LinearLayout>
+    <TextView android:textSize="17.0sp" android:layout_gravity="center" android:id="@id/tvrecordNull" android:padding="10.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/history_idle" android:textAlignment="center" />
+    <ListView android:id="@id/lvRecord" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+</LinearLayout>

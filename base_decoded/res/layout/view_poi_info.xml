@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@drawable/shape_border_window" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingStart="6.0dip" android:paddingEnd="10.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <ImageButton android:theme="@style/RippleWhite" android:id="@id/poi_fly" android:background="?android:selectableItemBackgroundBorderless" android:layout_width="40.0dip" android:layout_height="40.0dip" android:src="@drawable/ic_fly" android:contentDescription="@null" android:layout_marginEnd="5.0dip" app:tint="@color/colorAccent" />
+        <LinearLayout android:layout_gravity="center_vertical" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <TextView android:textSize="16.0sp" android:id="@id/poi_longitude" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+            <TextView android:textSize="16.0sp" android:id="@id/poi_latitude" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <TextView android:id="@id/poi_address" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginStart="4.0dip" />
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="6.0dip" android:layout_marginStart="3.0dip">
+        <ImageButton android:theme="@style/RippleWhite" android:id="@id/poi_save" android:background="?android:selectableItemBackgroundBorderless" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_save" android:contentDescription="@null" app:tint="@color/colorAccent" />
+        <ImageButton android:theme="@style/RippleWhite" android:id="@id/poi_copy" android:background="?android:selectableItemBackgroundBorderless" android:layout_width="0.0dip" android:layout_height="wrap_content" android:src="@drawable/ic_copy" android:layout_weight="1.0" android:contentDescription="@null" app:tint="@color/colorAccent" />
+        <ImageButton android:theme="@style/RippleWhite" android:id="@id/poi_share" android:background="?android:selectableItemBackgroundBorderless" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_share" android:contentDescription="@null" app:tint="@color/colorAccent" />
+    </LinearLayout>
+</LinearLayout>

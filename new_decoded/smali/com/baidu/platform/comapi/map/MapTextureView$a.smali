@@ -1,0 +1,351 @@
+.class Lcom/baidu/platform/comapi/map/MapTextureView$a;
+.super Ljava/lang/Object;
+.source "r8-map-id-a697c28d88f1f7ab09acc7302245a726fba68895f62733ff39ce95c9cd8db744"
+
+# interfaces
+.implements Landroid/opengl/GLSurfaceView$EGLContextFactory;
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/baidu/platform/comapi/map/MapTextureView;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x2
+    name = "a"
+.end annotation
+
+
+# instance fields
+.field final synthetic a:Lcom/baidu/platform/comapi/map/MapTextureView;
+
+.field private b:I
+
+
+# direct methods
+.method private constructor <init>(Lcom/baidu/platform/comapi/map/MapTextureView;)V
+    .locals 0
+
+    .line 1
+    iput-object p1, p0, Lcom/baidu/platform/comapi/map/MapTextureView$a;->a:Lcom/baidu/platform/comapi/map/MapTextureView;
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    const/16 p1, 0x3098
+
+    .line 2
+    iput p1, p0, Lcom/baidu/platform/comapi/map/MapTextureView$a;->b:I
+
+    return-void
+.end method
+
+.method synthetic constructor <init>(Lcom/baidu/platform/comapi/map/MapTextureView;Lcom/baidu/platform/comapi/map/w;)V
+    .locals 0
+
+    .line 3
+    invoke-direct {p0, p1}, Lcom/baidu/platform/comapi/map/MapTextureView$a;-><init>(Lcom/baidu/platform/comapi/map/MapTextureView;)V
+
+    return-void
+.end method
+
+.method private a(I)Ljava/lang/String;
+    .locals 0
+
+    packed-switch p1, :pswitch_data_0
+
+    .line 3
+    invoke-direct {p0, p1}, Lcom/baidu/platform/comapi/map/MapTextureView$a;->b(I)Ljava/lang/String;
+
+    move-result-object p1
+
+    return-object p1
+
+    .line 4
+    :pswitch_0
+    const-string p1, "EGL_CONTEXT_LOST"
+
+    return-object p1
+
+    .line 5
+    :pswitch_1
+    const-string p1, "EGL_BAD_SURFACE"
+
+    return-object p1
+
+    .line 6
+    :pswitch_2
+    const-string p1, "EGL_BAD_PARAMETER"
+
+    return-object p1
+
+    .line 7
+    :pswitch_3
+    const-string p1, "EGL_BAD_NATIVE_WINDOW"
+
+    return-object p1
+
+    .line 8
+    :pswitch_4
+    const-string p1, "EGL_BAD_NATIVE_PIXMAP"
+
+    return-object p1
+
+    .line 9
+    :pswitch_5
+    const-string p1, "EGL_BAD_MATCH"
+
+    return-object p1
+
+    .line 10
+    :pswitch_6
+    const-string p1, "EGL_BAD_DISPLAY"
+
+    return-object p1
+
+    .line 11
+    :pswitch_7
+    const-string p1, "EGL_BAD_CURRENT_SURFACE"
+
+    return-object p1
+
+    .line 12
+    :pswitch_8
+    const-string p1, "EGL_BAD_CONTEXT"
+
+    return-object p1
+
+    .line 13
+    :pswitch_9
+    const-string p1, "EGL_BAD_CONFIG"
+
+    return-object p1
+
+    .line 14
+    :pswitch_a
+    const-string p1, "EGL_BAD_ATTRIBUTE"
+
+    return-object p1
+
+    .line 15
+    :pswitch_b
+    const-string p1, "EGL_BAD_ALLOC"
+
+    return-object p1
+
+    .line 16
+    :pswitch_c
+    const-string p1, "EGL_BAD_ACCESS"
+
+    return-object p1
+
+    .line 17
+    :pswitch_d
+    const-string p1, "EGL_NOT_INITIALIZED"
+
+    return-object p1
+
+    .line 18
+    :pswitch_e
+    const-string p1, "EGL_SUCCESS"
+
+    return-object p1
+
+    nop
+
+    :pswitch_data_0
+    .packed-switch 0x3000
+        :pswitch_e
+        :pswitch_d
+        :pswitch_c
+        :pswitch_b
+        :pswitch_a
+        :pswitch_9
+        :pswitch_8
+        :pswitch_7
+        :pswitch_6
+        :pswitch_5
+        :pswitch_4
+        :pswitch_3
+        :pswitch_2
+        :pswitch_1
+        :pswitch_0
+    .end packed-switch
+.end method
+
+.method private b(I)Ljava/lang/String;
+    .locals 2
+
+    .line 2
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v1, "0x"
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-static {p1}, Ljava/lang/Integer;->toHexString(I)Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-virtual {v0, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    return-object p1
+.end method
+
+
+# virtual methods
+.method public a(Ljava/lang/String;I)V
+    .locals 0
+
+    .line 1
+    invoke-virtual {p0, p1, p2}, Lcom/baidu/platform/comapi/map/MapTextureView$a;->b(Ljava/lang/String;I)Ljava/lang/String;
+
+    move-result-object p1
+
+    .line 2
+    new-instance p2, Ljava/lang/RuntimeException;
+
+    invoke-direct {p2, p1}, Ljava/lang/RuntimeException;-><init>(Ljava/lang/String;)V
+
+    throw p2
+.end method
+
+.method public b(Ljava/lang/String;I)Ljava/lang/String;
+    .locals 1
+
+    .line 1
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v0, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    const-string p1, " failed: "
+
+    invoke-virtual {v0, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-direct {p0, p2}, Lcom/baidu/platform/comapi/map/MapTextureView$a;->a(I)Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-virtual {v0, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    return-object p1
+.end method
+
+.method public createContext(Ljavax/microedition/khronos/egl/EGL10;Ljavax/microedition/khronos/egl/EGLDisplay;Ljavax/microedition/khronos/egl/EGLConfig;)Ljavax/microedition/khronos/egl/EGLContext;
+    .locals 3
+
+    .line 1
+    iget v0, p0, Lcom/baidu/platform/comapi/map/MapTextureView$a;->b:I
+
+    .line 2
+    .line 3
+    const/4 v1, 0x2
+
+    .line 4
+    const/16 v2, 0x3038
+
+    .line 5
+    .line 6
+    filled-new-array {v0, v1, v2}, [I
+
+    .line 7
+    .line 8
+    .line 9
+    move-result-object v0
+
+    .line 10
+    sget-object v1, Ljavax/microedition/khronos/egl/EGL10;->EGL_NO_CONTEXT:Ljavax/microedition/khronos/egl/EGLContext;
+
+    .line 11
+    .line 12
+    invoke-interface {p1, p2, p3, v1, v0}, Ljavax/microedition/khronos/egl/EGL10;->eglCreateContext(Ljavax/microedition/khronos/egl/EGLDisplay;Ljavax/microedition/khronos/egl/EGLConfig;Ljavax/microedition/khronos/egl/EGLContext;[I)Ljavax/microedition/khronos/egl/EGLContext;
+
+    .line 13
+    .line 14
+    .line 15
+    move-result-object p1
+
+    .line 16
+    return-object p1
+.end method
+
+.method public destroyContext(Ljavax/microedition/khronos/egl/EGL10;Ljavax/microedition/khronos/egl/EGLDisplay;Ljavax/microedition/khronos/egl/EGLContext;)V
+    .locals 1
+
+    .line 1
+    if-eqz p3, :cond_2
+
+    .line 2
+    .line 3
+    if-nez p2, :cond_0
+
+    .line 4
+    .line 5
+    goto :goto_0
+
+    .line 6
+    :cond_0
+    sget-object v0, Ljavax/microedition/khronos/egl/EGL10;->EGL_NO_SURFACE:Ljavax/microedition/khronos/egl/EGLSurface;
+
+    .line 7
+    .line 8
+    invoke-interface {p1, p2, v0, v0, p3}, Ljavax/microedition/khronos/egl/EGL10;->eglMakeCurrent(Ljavax/microedition/khronos/egl/EGLDisplay;Ljavax/microedition/khronos/egl/EGLSurface;Ljavax/microedition/khronos/egl/EGLSurface;Ljavax/microedition/khronos/egl/EGLContext;)Z
+
+    .line 9
+    .line 10
+    .line 11
+    invoke-interface {p1, p2, p3}, Ljavax/microedition/khronos/egl/EGL10;->eglDestroyContext(Ljavax/microedition/khronos/egl/EGLDisplay;Ljavax/microedition/khronos/egl/EGLContext;)Z
+
+    .line 12
+    .line 13
+    .line 14
+    move-result p2
+
+    .line 15
+    if-nez p2, :cond_1
+
+    .line 16
+    .line 17
+    const-string p2, "eglDestroyContex"
+
+    .line 18
+    .line 19
+    invoke-interface {p1}, Ljavax/microedition/khronos/egl/EGL10;->eglGetError()I
+
+    .line 20
+    .line 21
+    .line 22
+    move-result p1
+
+    .line 23
+    invoke-virtual {p0, p2, p1}, Lcom/baidu/platform/comapi/map/MapTextureView$a;->a(Ljava/lang/String;I)V
+
+    .line 24
+    .line 25
+    .line 26
+    :cond_1
+    iget-object p1, p0, Lcom/baidu/platform/comapi/map/MapTextureView$a;->a:Lcom/baidu/platform/comapi/map/MapTextureView;
+
+    .line 27
+    .line 28
+    invoke-virtual {p1}, Lcom/baidu/platform/comapi/map/MapTextureView;->onRecycle()V
+
+    .line 29
+    .line 30
+    .line 31
+    :cond_2
+    :goto_0
+    return-void
+.end method

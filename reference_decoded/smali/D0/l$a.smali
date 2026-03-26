@@ -1,0 +1,22 @@
+.class public interface abstract LD0/l$a;
+.super Ljava/lang/Object;
+.source "SourceFile"
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = LD0/l;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x609
+    name = "a"
+.end annotation
+
+
+# virtual methods
+.method public abstract a(LD0/l;LB1/r;)V
+.end method
+
+.method public abstract b(LD0/l;LB1/r;)V
+.end method

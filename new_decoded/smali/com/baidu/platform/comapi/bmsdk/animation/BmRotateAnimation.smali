@@ -1,0 +1,58 @@
+.class public Lcom/baidu/platform/comapi/bmsdk/animation/BmRotateAnimation;
+.super Lcom/baidu/platform/comapi/bmsdk/animation/BmAnimation;
+.source "r8-map-id-a697c28d88f1f7ab09acc7302245a726fba68895f62733ff39ce95c9cd8db744"
+
+
+# instance fields
+.field private a:F
+
+.field private b:F
+
+
+# direct methods
+.method public constructor <init>(FF)V
+    .locals 3
+
+    .line 1
+    const/16 v0, 0x54
+
+    .line 2
+    .line 3
+    invoke-static {}, Lcom/baidu/platform/comapi/bmsdk/animation/BmRotateAnimation;->nativeCreate()J
+
+    .line 4
+    .line 5
+    .line 6
+    move-result-wide v1
+
+    .line 7
+    invoke-direct {p0, v0, v1, v2}, Lcom/baidu/platform/comapi/bmsdk/animation/BmAnimation;-><init>(IJ)V
+
+    .line 8
+    .line 9
+    .line 10
+    iput p1, p0, Lcom/baidu/platform/comapi/bmsdk/animation/BmRotateAnimation;->a:F
+
+    .line 11
+    .line 12
+    iput p2, p0, Lcom/baidu/platform/comapi/bmsdk/animation/BmRotateAnimation;->b:F
+
+    .line 13
+    .line 14
+    iget-wide v0, p0, Lcom/baidu/platform/comapi/bmsdk/BmObject;->nativeInstance:J
+
+    .line 15
+    .line 16
+    invoke-static {v0, v1, p1, p2}, Lcom/baidu/platform/comapi/bmsdk/animation/BmRotateAnimation;->nativeBuildAnimation(JFF)Z
+
+    .line 17
+    .line 18
+    .line 19
+    return-void
+.end method
+
+.method private static native nativeBuildAnimation(JFF)Z
+.end method
+
+.method private static native nativeCreate()J
+.end method

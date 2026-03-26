@@ -1,0 +1,14 @@
+.class public abstract Landroidx/core/text/k;
+.super Ljava/lang/Object;
+.source "r8-map-id-a697c28d88f1f7ab09acc7302245a726fba68895f62733ff39ce95c9cd8db744"
+
+# interfaces
+.implements Landroid/text/Spannable;
+
+
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Landroidx/core/text/k$a;
+    }
+.end annotation

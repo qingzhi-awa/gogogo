@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <ImageButton android:theme="@style/RippleWhite" android:id="@id/btn_north_west" android:background="?android:selectableItemBackgroundBorderless" android:layout_width="@dimen/joystick_btn_width" android:layout_height="@dimen/joystick_btn_height" android:src="@drawable/ic_left_up" android:contentDescription="@null" />
+        <ImageButton android:theme="@style/RippleWhite" android:id="@id/btn_north" android:background="?android:selectableItemBackgroundBorderless" android:layout_width="@dimen/joystick_btn_width" android:layout_height="@dimen/joystick_btn_height" android:src="@drawable/ic_up" android:contentDescription="@null" />
+        <ImageButton android:theme="@style/RippleWhite" android:id="@id/btn_north_east" android:background="?android:selectableItemBackgroundBorderless" android:layout_width="@dimen/joystick_btn_width" android:layout_height="@dimen/joystick_btn_height" android:src="@drawable/ic_right_up" android:contentDescription="@null" />
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <ImageButton android:theme="@style/RippleWhite" android:id="@id/btn_west" android:background="?android:selectableItemBackgroundBorderless" android:layout_width="@dimen/joystick_btn_width" android:layout_height="@dimen/joystick_btn_height" android:src="@drawable/ic_left" android:contentDescription="@null" />
+        <ImageButton android:theme="@style/RippleWhite" android:id="@id/btn_center" android:background="?android:selectableItemBackgroundBorderless" android:layout_width="@dimen/joystick_btn_width" android:layout_height="@dimen/joystick_btn_height" android:src="@drawable/ic_lock_close" android:contentDescription="@null" />
+        <ImageButton android:theme="@style/RippleWhite" android:id="@id/btn_east" android:background="?android:selectableItemBackgroundBorderless" android:layout_width="@dimen/joystick_btn_width" android:layout_height="@dimen/joystick_btn_height" android:src="@drawable/ic_right" android:contentDescription="@null" />
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <ImageButton android:theme="@style/RippleWhite" android:id="@id/btn_south_west" android:background="?android:selectableItemBackgroundBorderless" android:layout_width="@dimen/joystick_btn_width" android:layout_height="@dimen/joystick_btn_height" android:src="@drawable/ic_left_down" android:contentDescription="@null" />
+        <ImageButton android:theme="@style/RippleWhite" android:id="@id/btn_south" android:background="?android:selectableItemBackgroundBorderless" android:layout_width="@dimen/joystick_btn_width" android:layout_height="@dimen/joystick_btn_height" android:src="@drawable/ic_down" android:contentDescription="@null" />
+        <ImageButton android:theme="@style/RippleWhite" android:id="@id/btn_south_east" android:background="?android:selectableItemBackgroundBorderless" android:layout_width="@dimen/joystick_btn_width" android:layout_height="@dimen/joystick_btn_height" android:src="@drawable/ic_right_down" android:contentDescription="@null" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen app:iconSpaceReserved="false" xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory app:iconSpaceReserved="false" app:title="@string/setting_group_move">
+        <ListPreference app:defaultValue="0" app:dialogTitle="@string/setting_joystick_type" app:entries="@array/array_joystick_type" app:entryValues="@array/array_joystick_type_values" app:iconSpaceReserved="false" app:key="setting_joystick_type" app:title="@string/setting_joystick_type" />
+        <EditTextPreference app:defaultValue="@string/setting_walk_default" app:iconSpaceReserved="false" app:key="setting_walk" app:summary="@string/setting_walk_default" app:title="@string/setting_walk" />
+        <EditTextPreference app:defaultValue="@string/setting_run_default" app:iconSpaceReserved="false" app:key="setting_run" app:summary="@string/setting_run_default" app:title="@string/setting_run" />
+        <EditTextPreference app:defaultValue="@string/setting_bike_default" app:iconSpaceReserved="false" app:key="setting_bike" app:summary="@string/setting_bike_default" app:title="@string/setting_bike" />
+        <EditTextPreference app:defaultValue="@string/setting_altitude_default" app:iconSpaceReserved="false" app:key="setting_altitude" app:summary="@string/setting_altitude_default" app:title="@string/setting_altitude" />
+        <EditTextPreference app:defaultValue="@string/setting_cadence_default" app:iconSpaceReserved="false" app:key="setting_cadence" app:summary="@string/setting_cadence_default" app:title="@string/setting_cadence" />
+    </PreferenceCategory>
+    <PreferenceCategory app:iconSpaceReserved="false" app:title="@string/setting_group_location_offset">
+        <SwitchPreferenceCompat app:defaultValue="false" app:iconSpaceReserved="false" app:key="setting_random_offset" app:summary="@string/setting_random_offset_summary" app:title="@string/setting_random_offset" />
+        <EditTextPreference app:defaultValue="@string/setting_random_offset_default" app:iconSpaceReserved="false" app:key="setting_lat_max_offset" app:summary="@string/setting_random_offset_default" app:title="@string/setting_lat_max_offset" />
+        <EditTextPreference app:defaultValue="@string/setting_random_offset_default" app:iconSpaceReserved="false" app:key="setting_lon_max_offset" app:summary="@string/setting_random_offset_default" app:title="@string/setting_lon_max_offset" />
+    </PreferenceCategory>
+    <PreferenceCategory app:iconSpaceReserved="false" app:title="@string/setting_group_log">
+        <SwitchPreferenceCompat app:defaultValue="false" app:iconSpaceReserved="false" app:key="setting_log_off" app:title="@string/setting_log_off" />
+        <EditTextPreference app:defaultValue="@string/history_expiration" app:iconSpaceReserved="false" app:key="setting_history_expiration" app:summary="@string/history_expiration" app:title="@string/setting_history_expiration" />
+    </PreferenceCategory>
+    <PreferenceCategory app:iconSpaceReserved="false" app:title="@string/setting_group_about">
+        <Preference app:iconSpaceReserved="false" app:key="setting_version" app:title="@string/setting_version" />
+        <Preference app:defaultValue="@string/app_author" app:iconSpaceReserved="false" app:key="setting_author" app:summary="@string/app_author" app:title="@string/setting_author" />
+    </PreferenceCategory>
+</PreferenceScreen>

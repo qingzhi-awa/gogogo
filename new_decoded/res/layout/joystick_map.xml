@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:orientation="vertical" android:background="@drawable/border_window" android:layout_width="300.0dip" android:layout_height="500.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView android:textSize="18.0sp" android:gravity="center" android:id="@id/joystick_map_tips" android:layout_width="fill_parent" android:layout_height="40.0dip" android:text="@string/joystick_map_tips" />
+    <SearchView android:id="@id/joystick_map_searchView" android:layout_width="fill_parent" android:layout_height="40.0dip" android:layout_marginTop="0.0dip" android:iconifiedByDefault="true" android:queryHint="@string/app_search_tips" android:layout_marginEnd="40.0dip" app:showAsAction="ifRoom|collapseActionView" />
+    <ImageButton android:theme="@style/RippleWhite" android:layout_gravity="end|center|top" android:id="@id/map_close" android:background="?android:selectableItemBackgroundBorderless" android:layout_width="@dimen/joystick_btn_width" android:layout_height="@dimen/joystick_btn_height" android:layout_marginTop="5.0dip" android:src="@drawable/ic_close" android:contentDescription="@null" android:layout_marginEnd="3.0dip" />
+    <FrameLayout android:layout_width="fill_parent" android:layout_height="450.0dip" android:layout_marginTop="40.0dip">
+        <com.baidu.mapapi.map.MapView android:id="@id/map_joystick" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+        <ImageButton android:theme="@style/RippleWhite" android:id="@id/btnBack" android:background="?android:selectableItemBackgroundBorderless" android:layout_width="32.0dip" android:layout_height="32.0dip" android:layout_marginTop="240.0dip" android:src="@drawable/ic_home_position" android:contentDescription="@null" android:layout_marginStart="280.0dip" />
+        <LinearLayout android:layout_gravity="bottom|center" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="40.0dip">
+            <ImageButton android:theme="@style/RippleWhite" android:id="@id/btnDrawRun" android:background="@drawable/circle_shape_bg" android:layout_width="40.0dip" android:layout_height="40.0dip" android:src="@drawable/ic_walk" android:contentDescription="@null" android:layout_marginEnd="20.0dip" />
+            <ImageButton android:theme="@style/RippleWhite" android:id="@id/btnCircleRun" android:background="@drawable/circle_shape_bg" android:layout_width="40.0dip" android:layout_height="40.0dip" android:src="@drawable/ic_run" android:contentDescription="@null" android:layout_marginEnd="20.0dip" />
+            <ImageButton android:theme="@style/RippleWhite" android:id="@id/btnGo" android:background="@drawable/circle_shape_bg" android:layout_width="40.0dip" android:layout_height="40.0dip" android:src="@drawable/ic_position" android:contentDescription="@null" />
+        </LinearLayout>
+        <LinearLayout android:id="@id/map_search_linear" android:background="#ddffffff" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <ListView android:id="@id/map_search_list_view" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="10.0dip" />
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>

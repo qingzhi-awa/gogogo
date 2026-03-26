@@ -1,0 +1,14 @@
+.class public interface abstract Lcom/baidu/mapsdkplatform/comjni/a/a/a;
+.super Ljava/lang/Object;
+.source "r8-map-id-a697c28d88f1f7ab09acc7302245a726fba68895f62733ff39ce95c9cd8db744"
+
+# interfaces
+.implements Lcom/baidu/platform/comjni/map/basemap/a;
+
+
+# virtual methods
+.method public abstract a(Landroid/os/Bundle;JI)I
+.end method
+
+.method public abstract a(J)Z
+.end method

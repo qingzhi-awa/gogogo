@@ -1,0 +1,53 @@
+.class Lcom/zcshou/gogogo/MainActivity$d;
+.super Ljava/lang/Object;
+.source "SourceFile"
+
+# interfaces
+.implements Landroid/content/ServiceConnection;
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingMethod;
+    value = Lcom/zcshou/gogogo/MainActivity;->onCreate(Landroid/os/Bundle;)V
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x0
+    name = null
+.end annotation
+
+
+# instance fields
+.field final synthetic a:Lcom/zcshou/gogogo/MainActivity;
+
+
+# direct methods
+.method constructor <init>(Lcom/zcshou/gogogo/MainActivity;)V
+    .locals 0
+
+    iput-object p1, p0, Lcom/zcshou/gogogo/MainActivity$d;->a:Lcom/zcshou/gogogo/MainActivity;
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public onServiceConnected(Landroid/content/ComponentName;Landroid/os/IBinder;)V
+    .locals 0
+
+    iget-object p1, p0, Lcom/zcshou/gogogo/MainActivity$d;->a:Lcom/zcshou/gogogo/MainActivity;
+
+    check-cast p2, Lcom/zcshou/service/ServiceGo$d;
+
+    invoke-static {p1, p2}, Lcom/zcshou/gogogo/MainActivity;->G0(Lcom/zcshou/gogogo/MainActivity;Lcom/zcshou/service/ServiceGo$d;)V
+
+    return-void
+.end method
+
+.method public onServiceDisconnected(Landroid/content/ComponentName;)V
+    .locals 0
+
+    return-void
+.end method

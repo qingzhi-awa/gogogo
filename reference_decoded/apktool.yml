@@ -1,0 +1,36 @@
+version: 2.9.3
+apkFileName: 锻炼身体.apk
+isFrameworkApk: false
+usesFramework:
+  ids:
+  - 1
+  tag: null
+sdkInfo:
+  minSdkVersion: 27
+  targetSdkVersion: 32
+packageInfo:
+  forcedPackageId: 127
+  renameManifestPackage: null
+versionInfo:
+  versionCode: 1123
+  versionName: 1.12.3
+resourcesAreCompressed: false
+sharedLibrary: false
+sparseResources: false
+unknownFiles:
+  DebugProbesKt.bin: 8
+  okhttp3/internal/publicsuffix/NOTICE: 8
+  okhttp3/internal/publicsuffix/publicsuffixes.gz: 8
+  org/commonmark/internal/util/entities.properties: 8
+doNotCompress:
+- resources.arsc
+- png
+- assets/dexopt/baseline.prof
+- assets/dexopt/baseline.profm
+- lib/arm64-v8a/libBaiduMapSDK_base_v7_6_5.so
+- lib/arm64-v8a/libBaiduMapSDK_map_v7_6_5.so
+- lib/arm64-v8a/libc++_shared.so
+- lib/arm64-v8a/libindoor.so
+- lib/arm64-v8a/liblocSDK8b.so
+- lib/arm64-v8a/libtiny_magic.so
+- webp

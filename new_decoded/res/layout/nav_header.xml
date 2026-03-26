@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:theme="@style/ThemeOverlay.AppCompat.Dark" android:orientation="vertical" android:background="@drawable/side_nav_bar" android:paddingLeft="@dimen/activity_horizontal_margin" android:paddingTop="@dimen/activity_vertical_margin" android:paddingRight="@dimen/activity_horizontal_margin" android:layout_width="fill_parent" android:layout_height="@dimen/nav_header_height"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:id="@id/app_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="30.0dip" android:contentDescription="@null" app:srcCompat="@mipmap/ic_launcher_round" />
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dip">
+        <TextView android:textAppearance="@style/TextAppearance.AppCompat.Body1" android:textSize="18.0sp" android:id="@id/app_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/app_name" />
+        <Space android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0" />
+        <TextView android:textAppearance="@style/TextAppearance.AppCompat.Body1" android:id="@id/app_version" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:drawablePadding="5.0dip" />
+    </LinearLayout>
+    <TextView android:gravity="center_vertical" android:layout_gravity="center_vertical" android:id="@id/app_tips" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:text="@string/nav_app_tips" android:drawablePadding="5.0dip" app:drawableStartCompat="@drawable/ic_msg" />
+</LinearLayout>

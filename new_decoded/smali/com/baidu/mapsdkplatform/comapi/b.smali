@@ -1,0 +1,366 @@
+.class public Lcom/baidu/mapsdkplatform/comapi/b;
+.super Ljava/lang/Object;
+.source "r8-map-id-a697c28d88f1f7ab09acc7302245a726fba68895f62733ff39ce95c9cd8db744"
+
+
+# static fields
+.field private static a:Z = false
+
+.field private static b:Lcom/baidu/mapapi/CommonInfo; = null
+
+.field private static c:Z = false
+
+
+# direct methods
+.method static constructor <clinit>()V
+    .locals 0
+
+    .line 1
+    return-void
+.end method
+
+.method public static a(Landroid/content/Context;Z)V
+    .locals 1
+
+    if-eqz p0, :cond_1
+
+    .line 20
+    instance-of v0, p0, Landroid/app/Application;
+
+    if-eqz v0, :cond_0
+
+    .line 21
+    sput-boolean p1, Lcom/baidu/mapsdkplatform/comapi/b;->c:Z
+
+    .line 22
+    invoke-static {p1}, Lcom/baidu/mapsdkplatform/comapi/util/PermissionCheck;->setPrivacyMode(Z)V
+
+    .line 23
+    invoke-static {p1}, Lcom/baidu/mapsdkplatform/comapi/util/k;->a(Z)V
+
+    .line 24
+    invoke-static {p0}, Lcom/baidu/lbsapi/auth/LBSAuthManager;->getInstance(Landroid/content/Context;)Lcom/baidu/lbsapi/auth/LBSAuthManager;
+
+    move-result-object p0
+
+    invoke-virtual {p0, p1}, Lcom/baidu/lbsapi/auth/LBSAuthManager;->setPrivacyMode(Z)V
+
+    .line 25
+    invoke-static {}, Lcom/baidu/mapapi/a;->a()Ljava/util/concurrent/ExecutorService;
+
+    move-result-object p0
+
+    new-instance p1, Lcom/baidu/mapsdkplatform/comapi/c;
+
+    invoke-direct {p1}, Lcom/baidu/mapsdkplatform/comapi/c;-><init>()V
+
+    invoke-interface {p0, p1}, Ljava/util/concurrent/ExecutorService;->submit(Ljava/lang/Runnable;)Ljava/util/concurrent/Future;
+
+    return-void
+
+    .line 26
+    :cond_0
+    new-instance p0, Ljava/lang/RuntimeException;
+
+    const-string p1, "BDMapSDKException: context must be an ApplicationContext"
+
+    invoke-direct {p0, p1}, Ljava/lang/RuntimeException;-><init>(Ljava/lang/String;)V
+
+    throw p0
+
+    .line 27
+    :cond_1
+    new-instance p0, Ljava/lang/IllegalArgumentException;
+
+    const-string p1, "BDMapSDKException: context can not be null"
+
+    invoke-direct {p0, p1}, Ljava/lang/IllegalArgumentException;-><init>(Ljava/lang/String;)V
+
+    throw p0
+.end method
+
+.method public static a(Landroid/content/Context;ZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/baidu/mapapi/ISDKInitializerListener;)V
+    .locals 0
+
+    .line 1
+    sget-boolean p4, Lcom/baidu/mapsdkplatform/comapi/b;->a:Z
+
+    if-eqz p4, :cond_0
+
+    goto :goto_0
+
+    :cond_0
+    if-eqz p0, :cond_5
+
+    .line 2
+    instance-of p4, p0, Landroid/app/Application;
+
+    if-eqz p4, :cond_4
+
+    .line 3
+    invoke-static {p0}, Lcom/baidu/mapsdkplatform/comapi/NativeLoader;->setContext(Landroid/content/Context;)V
+
+    .line 4
+    invoke-static {p1, p2}, Lcom/baidu/mapsdkplatform/comapi/NativeLoader;->a(ZLjava/lang/String;)V
+
+    .line 5
+    move-object p1, p0
+
+    check-cast p1, Landroid/app/Application;
+
+    invoke-static {p1}, Lcom/baidu/mapapi/JNIInitializer;->setContext(Landroid/app/Application;)V
+
+    .line 6
+    invoke-static {}, Lcom/baidu/platform/comapi/util/SysOSUtil;->getInstance()Lcom/baidu/platform/comapi/util/SysOSUtil;
+
+    move-result-object p1
+
+    new-instance p2, Lcom/baidu/platform/comapi/util/a/b;
+
+    invoke-direct {p2}, Lcom/baidu/platform/comapi/util/a/b;-><init>()V
+
+    new-instance p4, Lcom/baidu/platform/comapi/util/a/a;
+
+    invoke-direct {p4}, Lcom/baidu/platform/comapi/util/a/a;-><init>()V
+
+    invoke-virtual {p1, p2, p4}, Lcom/baidu/platform/comapi/util/SysOSUtil;->init(Lcom/baidu/platform/comapi/util/a/b;Lcom/baidu/platform/comapi/util/a/a;)V
+
+    .line 7
+    invoke-static {p3}, Lcom/baidu/mapsdkplatform/comapi/b;->a(Ljava/lang/String;)Z
+
+    move-result p1
+
+    if-eqz p1, :cond_1
+
+    .line 8
+    invoke-static {p3}, Lcom/baidu/mapapi/common/EnvironmentUtilities;->setSDCardPath(Ljava/lang/String;)V
+
+    .line 9
+    :cond_1
+    invoke-static {p0}, Lcom/baidu/mapapi/common/EnvironmentUtilities;->initAppDirectory(Landroid/content/Context;)V
+
+    .line 10
+    invoke-static {}, Lcom/baidu/mapsdkplatform/comapi/a;->a()Lcom/baidu/mapsdkplatform/comapi/a;
+
+    move-result-object p1
+
+    invoke-virtual {p1, p0}, Lcom/baidu/mapsdkplatform/comapi/a;->a(Landroid/content/Context;)V
+
+    .line 11
+    invoke-static {}, Lcom/baidu/mapsdkplatform/comapi/a;->a()Lcom/baidu/mapsdkplatform/comapi/a;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Lcom/baidu/mapsdkplatform/comapi/a;->c()Z
+
+    .line 12
+    invoke-static {}, Lcom/baidu/mapapi/OpenLogUtil;->isNativeLogAnalysisEnable()Z
+
+    move-result p1
+
+    if-eqz p1, :cond_2
+
+    .line 13
+    invoke-static {}, Lcom/baidu/mapsdkplatform/comapi/b/a/c;->a()Lcom/baidu/mapsdkplatform/comapi/b/a/c;
+
+    move-result-object p1
+
+    invoke-virtual {p1, p0}, Lcom/baidu/mapsdkplatform/comapi/b/a/c;->a(Landroid/content/Context;)V
+
+    :cond_2
+    const/4 p0, 0x1
+
+    .line 14
+    sput-boolean p0, Lcom/baidu/mapsdkplatform/comapi/b;->a:Z
+
+    if-eqz p5, :cond_3
+
+    .line 15
+    invoke-interface {p5}, Lcom/baidu/mapapi/ISDKInitializerListener;->initializerFinish()V
+
+    :cond_3
+    :goto_0
+    return-void
+
+    .line 16
+    :cond_4
+    new-instance p0, Ljava/lang/RuntimeException;
+
+    const-string p1, "BDMapSDKException: context must be an ApplicationContext"
+
+    invoke-direct {p0, p1}, Ljava/lang/RuntimeException;-><init>(Ljava/lang/String;)V
+
+    throw p0
+
+    .line 17
+    :cond_5
+    new-instance p0, Ljava/lang/IllegalArgumentException;
+
+    const-string p1, "BDMapSDKException: context can not be null"
+
+    invoke-direct {p0, p1}, Ljava/lang/IllegalArgumentException;-><init>(Ljava/lang/String;)V
+
+    throw p0
+.end method
+
+.method public static a(Lcom/baidu/mapapi/CommonInfo;)V
+    .locals 0
+
+    .line 19
+    sput-object p0, Lcom/baidu/mapsdkplatform/comapi/b;->b:Lcom/baidu/mapapi/CommonInfo;
+
+    return-void
+.end method
+
+.method public static a()Z
+    .locals 1
+
+    .line 18
+    sget-boolean v0, Lcom/baidu/mapsdkplatform/comapi/b;->a:Z
+
+    return v0
+.end method
+
+.method private static a(Ljava/lang/String;)Z
+    .locals 2
+
+    if-eqz p0, :cond_3
+
+    .line 28
+    invoke-virtual {p0}, Ljava/lang/String;->isEmpty()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    goto :goto_0
+
+    .line 29
+    :cond_0
+    :try_start_0
+    new-instance v0, Ljava/io/File;
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v1, p0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    const-string p0, "/check.0"
+
+    invoke-virtual {v1, p0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p0
+
+    invoke-direct {v0, p0}, Ljava/io/File;-><init>(Ljava/lang/String;)V
+
+    .line 30
+    invoke-virtual {v0}, Ljava/io/File;->exists()Z
+
+    move-result p0
+
+    if-eqz p0, :cond_1
+
+    .line 31
+    invoke-virtual {v0}, Ljava/io/File;->delete()Z
+
+    .line 32
+    :cond_1
+    invoke-virtual {v0}, Ljava/io/File;->createNewFile()Z
+
+    .line 33
+    invoke-virtual {v0}, Ljava/io/File;->exists()Z
+
+    move-result p0
+
+    if-eqz p0, :cond_2
+
+    .line 34
+    invoke-virtual {v0}, Ljava/io/File;->delete()Z
+    :try_end_0
+    .catch Ljava/io/IOException; {:try_start_0 .. :try_end_0} :catch_0
+
+    :cond_2
+    const/4 p0, 0x1
+
+    return p0
+
+    :catch_0
+    move-exception p0
+
+    .line 35
+    const-string v0, "SDKInitializer"
+
+    const-string v1, "SDCard cache path invalid"
+
+    invoke-static {v0, v1, p0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+
+    .line 36
+    new-instance p0, Ljava/lang/IllegalArgumentException;
+
+    const-string v0, "BDMapSDKException: Provided sdcard cache path invalid can not used."
+
+    invoke-direct {p0, v0}, Ljava/lang/IllegalArgumentException;-><init>(Ljava/lang/String;)V
+
+    throw p0
+
+    :cond_3
+    :goto_0
+    const/4 p0, 0x0
+
+    return p0
+.end method
+
+.method public static b()Lcom/baidu/mapapi/CommonInfo;
+    .locals 1
+
+    .line 1
+    sget-object v0, Lcom/baidu/mapsdkplatform/comapi/b;->b:Lcom/baidu/mapapi/CommonInfo;
+
+    .line 2
+    .line 3
+    return-object v0
+.end method
+
+.method public static c()Z
+    .locals 1
+
+    .line 1
+    sget-boolean v0, Lcom/baidu/mapsdkplatform/comapi/b;->c:Z
+
+    .line 2
+    .line 3
+    return v0
+.end method
+
+.method public static d()V
+    .locals 1
+
+    .line 1
+    const/4 v0, 0x1
+
+    .line 2
+    invoke-static {v0}, Lcom/baidu/mapsdkplatform/comapi/util/k;->b(Z)V
+
+    .line 3
+    .line 4
+    .line 5
+    return-void
+.end method
+
+.method public static e()V
+    .locals 1
+
+    .line 1
+    const/4 v0, 0x0
+
+    .line 2
+    invoke-static {v0}, Lcom/baidu/mapsdkplatform/comapi/util/k;->b(Z)V
+
+    .line 3
+    .line 4
+    .line 5
+    return-void
+.end method

@@ -1,0 +1,52 @@
+.class public abstract Lcom/baidu/mapsdkplatform/comapi/a/c;
+.super Ljava/lang/Object;
+.source "r8-map-id-a697c28d88f1f7ab09acc7302245a726fba68895f62733ff39ce95c9cd8db744"
+
+
+# direct methods
+.method public constructor <init>()V
+    .locals 0
+
+    .line 1
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 2
+    .line 3
+    .line 4
+    return-void
+.end method
+
+
+# virtual methods
+.method public abstract a()V
+.end method
+
+.method public abstract a(I)V
+.end method
+
+.method public abstract a(J)V
+.end method
+
+.method protected abstract a(Landroid/animation/Animator;)V
+.end method
+
+.method public abstract a(Landroid/animation/TypeEvaluator;)V
+.end method
+
+.method public abstract a(Landroid/view/animation/Interpolator;)V
+.end method
+
+.method public abstract a(Lcom/baidu/mapapi/animation/Animation$AnimationListener;)V
+.end method
+
+.method public abstract a(Lcom/baidu/mapapi/map/Marker;Lcom/baidu/mapapi/animation/Animation;)V
+.end method
+
+.method public abstract b()V
+.end method
+
+.method public abstract b(I)V
+.end method
+
+.method public abstract c(I)V
+.end method

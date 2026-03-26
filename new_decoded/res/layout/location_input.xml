@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditText android:id="@id/joystick_longitude" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dip" android:minHeight="48.0dip" android:hint="@string/label_longitude" android:digits="-0123456789." android:inputType="numberDecimal" android:layout_marginStart="8.0dip" android:layout_marginEnd="8.0dip" android:autofillHints="longitude" />
+    <EditText android:id="@id/joystick_latitude" android:layout_width="fill_parent" android:layout_height="wrap_content" android:minHeight="48.0dip" android:hint="@string/label_latitude" android:digits="-0123456789." android:inputType="numberDecimal" android:layout_marginStart="8.0dip" android:layout_marginEnd="8.0dip" android:autofillHints="latitude" />
+    <RadioGroup android:orientation="horizontal" android:id="@id/RadioGroupMapType" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginStart="8.0dip" android:layout_marginEnd="8.0dip">
+        <RadioButton android:id="@id/pos_type_bd" android:layout_width="fill_parent" android:layout_height="wrap_content" android:checked="true" android:text="@string/input_position_baidu" android:layout_weight="1.0" />
+        <RadioButton android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/input_position_gps" android:layout_weight="1.0" />
+    </RadioGroup>
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="8.0dip">
+        <Space android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0" />
+        <Button android:id="@id/input_position_cancel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/input_position_cancel" />
+        <Space android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0" />
+        <Button android:id="@id/input_position_ok" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/input_position_ok" />
+        <Space android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0" />
+    </LinearLayout>
+</LinearLayout>
